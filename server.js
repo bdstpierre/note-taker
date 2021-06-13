@@ -2,6 +2,8 @@
 // npm packages that we will use to give our server functionality
 
 const express = require('express');
+const path = require('path');
+const fs = require('fs');
 
 // EXPRESS CONFIGURTATION
 // Create an express server
@@ -20,6 +22,35 @@ app.use(express.static('public'));
 //ROUTER
 // Set up the routes for the Express app to use to respond to different url requests
 
+// => HTML GET Requests
+
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
+});
+
+// => api GET Requests
+app.get('/api/notes', (req, res) => {
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err)
+            return
+        };
+        let db = JSON.parse(data);
+        for (let i = 0; i < db.length; i++) {
+            res.json(db[i]);
+        }
+    });
+});
+
+
+// api POST Requests
+app.post('/api/notes', (req, res) => {
+
+})
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 
 //LISTENER
