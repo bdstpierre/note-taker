@@ -37,7 +37,7 @@ app.get('/api/notes', (req, res) => {
         };
         let db = JSON.parse(data);
         for (let i = 0; i < db.length; i++) {
-            res.json(db[i]);
+            res.json(db[i]); // This results in too many headers
         }
     });
 });
@@ -45,7 +45,30 @@ app.get('/api/notes', (req, res) => {
 
 // api POST Requests
 app.post('/api/notes', (req, res) => {
+    // First get the notes from the db
+    let db;
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err)
+            return
+        };
+        db = JSON.parse(data);
+    
+        // Next add the new note to the array of notes
+        //let newNote = JSON.parse(req.body);
+        console.log(`body = ${req.body}`);
+        console.log(`db = ${db}`);
+        //console.log(`New Note = ${newNote}`);
+        db.push(req.body);
 
+        res.json(req.body);
+        fs.writeFile('./db/db.json', JSON.stringify(db), () => {
+            if (err) {
+                console.error(err)
+                return
+            };
+        });
+    });
 })
 
 app.get('*', (req, res) => {
