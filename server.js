@@ -36,9 +36,7 @@ app.get('/api/notes', (req, res) => {
             return
         };
         let db = JSON.parse(data);
-        for (let i = 0; i < db.length; i++) {
-            res.json(db[i]); // This results in too many headers
-        }
+        res.json(db);
     });
 });
 
@@ -55,10 +53,6 @@ app.post('/api/notes', (req, res) => {
         db = JSON.parse(data);
     
         // Next add the new note to the array of notes
-        //let newNote = JSON.parse(req.body);
-        console.log(`body = ${req.body}`);
-        console.log(`db = ${db}`);
-        //console.log(`New Note = ${newNote}`);
         db.push(req.body);
 
         res.json(req.body);
