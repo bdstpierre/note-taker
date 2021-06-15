@@ -4,7 +4,10 @@
 
 Note Taker is a small app that allows a user to create small notes.  The user is presented with a list of notes and can select one for reading.  He can create a new note and he can delete an existing note.
 
-![Screenshot of the apllication or project](./assets/images/screenshot.png)
+[Note Taker App](https://bdstpierre-note-taker.herokuapp.com/)
+
+![Screenshot of the home page](./assets/images/screenshot.png)
+![Screenshot of the notes page](./assets/images/notepage.png)
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
