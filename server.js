@@ -4,6 +4,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const uID = require('generate-unique-id');
 
 // EXPRESS CONFIGURTATION
 // Create an express server
@@ -51,7 +52,15 @@ app.post('/api/notes', (req, res) => {
             return
         };
         db = JSON.parse(data);
-    
+
+        // Check to see if each note has a unique id, if not, assign one
+        db.forEach(element => {
+            if (element.id == null){
+                element.id = uID();
+            }
+        });
+        req.body.id = uID();
+
         // Next add the new note to the array of notes
         db.push(req.body);
 
